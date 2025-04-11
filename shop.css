@@ -22,9 +22,11 @@
         0 0 20px rgba(46, 204, 113, 0.3), 
         0 0 40px rgba(46, 204, 113, 0.2);
     position: relative;
-    animation: hologram-appear 0.5s ease-out;
     max-height: 80vh;
     overflow-y: auto;
+    /* Removed default scrollbar styling */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer and Edge */
 }
 
 .armor-shop-overlay {
@@ -51,8 +53,15 @@
         0 0 20px rgba(46, 204, 113, 0.3), 
         0 0 40px rgba(46, 204, 113, 0.2);
     position: relative;
-    animation: hologram-appear 0.5s ease-out;
     max-height: 80vh;
     overflow-y: auto;
+    /* Removed default scrollbar styling */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer and Edge */
 }
 
+/* Additional CSS to ensure no visible scrollbars */
+.item-shop-modal::-webkit-scrollbar,
+.armor-shop-modal::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+}
