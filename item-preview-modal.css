@@ -1,0 +1,109 @@
+/* New file: item-preview-modal.css */
+
+.minecraft-item-preview {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(5px);
+}
+
+.minecraft-item-preview-content {
+    background-color: #4A4A4A;
+    border: 4px solid #000;
+    width: 90%;
+    max-width: 350px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    box-shadow: 
+        inset -3px -3px #7C7C7C, 
+        inset 3px 3px #FFF,
+        0 10px 20px rgba(0,0,0,0.5);
+}
+
+.minecraft-item-preview-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    text-shadow: 2px 2px #000;
+}
+
+.minecraft-item-preview-image {
+    max-width: 100px;
+    max-height: 100px;
+    margin-bottom: 15px;
+    image-rendering: pixelated;
+}
+
+.minecraft-item-preview-name {
+    font-family: 'Press Start 2P', cursive;
+    color: #FFF;
+    text-shadow: 2px 2px #000;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+.minecraft-item-preview-details {
+    background-color: #000;
+    color: #FFF;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #FFF;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7em;
+}
+
+.minecraft-item-preview-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.minecraft-item-preview-stats div {
+    flex: 1;
+    padding: 10px;
+    background-color: #000;
+    border: 2px solid #FFF;
+    margin: 0 5px;
+}
+
+.minecraft-item-preview-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.minecraft-item-preview-buy,
+.minecraft-item-preview-cancel {
+    background-color: #4C4C4C;
+    color: white;
+    border: 3px solid rgba(255,255,255,0.6);
+    border-bottom-color: rgba(0,0,0,0.6);
+    border-right-color: rgba(0,0,0,0.6);
+    padding: 8px 12px;
+    text-transform: uppercase;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7em;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.minecraft-item-preview-buy:active,
+.minecraft-item-preview-cancel:active {
+    border-top-color: rgba(0,0,0,0.6);
+    border-left-color: rgba(0,0,0,0.6);
+    border-bottom-color: rgba(255,255,255,0.6);
+    border-right-color: rgba(255,255,255,0.6);
+    background-color: #3C3C3C;
+}

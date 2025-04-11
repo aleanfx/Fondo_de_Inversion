@@ -1,0 +1,131 @@
+.withdrawal-section {
+    background-color: rgba(0,0,0,0.6);
+    padding: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: center;
+}
+
+.withdrawal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(5px);
+}
+
+.withdrawal-modal {
+    width: 90%;
+    max-width: 350px;
+    background-color: rgba(0,0,0,0.8);
+    border: 2px solid rgba(46, 204, 113, 0.5);
+    border-radius: 10px;
+    box-shadow: 
+        0 0 20px rgba(46, 204, 113, 0.3), 
+        0 0 40px rgba(46, 204, 113, 0.2);
+    position: relative;
+    animation: hologram-appear 0.5s ease-out;
+}
+
+.withdrawal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: rgba(0,0,0,0.9);
+    border-bottom: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.withdrawal-header h2 {
+    color: var(--accent-color);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1em;
+    margin: 0;
+}
+
+.close-withdrawal-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-withdrawal-btn:hover {
+    color: red;
+}
+
+.withdrawal-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.withdrawal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    width: 100%;
+}
+
+.withdrawal-input {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+    color: white;
+    text-align: center;
+}
+
+.withdrawal-section .withdraw-btn {
+    background-color: transparent;
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    padding: 8px 12px;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    align-self: center;
+}
+
+.withdrawal-section .withdraw-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: var(--accent-color);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.withdrawal-section .withdraw-btn:hover {
+    color: black;
+}
+
+.withdrawal-section .withdraw-btn:hover::before {
+    left: 0;
+}
+
+.withdrawal-section .withdraw-btn:active {
+    transform: scale(0.95);
+}
+
+.withdrawal-warning {
+    color: var(--accent-color);
+    font-size: 0.7em;
+    margin-top: 10px;
+}

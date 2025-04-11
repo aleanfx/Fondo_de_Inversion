@@ -1,17 +1,286 @@
-<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fondo de Inversión</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fondo de Inversion</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="shop.css">
+    <link rel="stylesheet" href="inventory.css">
+    <link rel="stylesheet" href="armor.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="withdrawal.css">
+    <link rel="stylesheet" href="affiliate.css">
+    <link rel="stylesheet" href="startup.css">
+    <link rel="stylesheet" href="game-interactions.css">
+    <link rel="stylesheet" href="vertical-scroll.css">
+    <link rel="stylesheet" href="item-preview-modal.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
+    <script>
+        // Early service worker registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/background-worker.js')
+                    .catch((error) => {
+                        console.error('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </head>
 <body>
-  <div class="container">
-    <h1>Fondo de Inversión</h1>
-    <button id="playBtn">Jugar</button>
-    <canvas id="gameCanvas"></canvas>
-  </div>
-  <script src="main.js"></script>
+    <div id="startup-screen" class="startup-screen">
+        <div class="startup-logo-container">
+            <div class="startup-logo">
+                <img src="IMG_0594.jpeg" alt="Cyber Forex Logo" class="logo-image-new">
+                <img src="IMG_3846.png" alt="Cyber Forex Logo" class="logo-image">
+            </div>
+            <div class="startup-logo-text">
+                Cyber Forex
+            </div>
+            <div class="startup-logo-subtitle">
+                presenta...
+            </div>
+        </div>
+        <div class="startup-content">
+            <h1>Fondo de Inversión</h1>
+            <div class="startup-description">
+                <p>📌 Bienvenido a tu aventura de minería digital e inversión estratégica. Transforma cada clic en ganancias reales, convirtiendo tu pasión en USDT.</p>
+            </div>
+            <div class="startup-features">
+                <div class="feature">
+                    <span class="feature-icon">⛏️</span>
+                    <span class="feature-text">Mina USDT con cada acción</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">🛡️</span>
+                    <span>Desbloquea mejoras y aumenta tus ingresos</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">💰</span>
+                    <span>Retira tus ganancias en cualquier momento</span>
+                </div>
+            </div>
+            <button id="start-game-btn" class="start-game-btn">Jugar</button>
+        </div>
+    </div>
+
+    <div id="main-game-container" class="container hidden">
+        <div class="container">
+            <div class="page-title">
+                <h1>Fondo de Inversion</h1>
+            </div>
+            <header>
+                <div class="balance">
+                    <span class="balance-label">Saldo Total</span>
+                    <span class="balance-amount" id="balance">0.00</span><span class="balance-currency">USDT</span>
+                </div>
+            </header>
+
+            <div class="mining-area">
+                <div class="pickaxe-container">
+                    <div class="pickaxe" id="pickaxe">
+                        <img src="IMG_3614.gif" alt="Mining Character" style="width: 128px; height: 128px; image-rendering: pixelated;">
+                    </div>
+                    
+                    <div class="daily-reward-chest-container">
+                        <div class="daily-reward-chest" id="dailyRewardChest">
+                            <img src="IMG_3600.png" alt="Daily Reward Chest" class="chest-image">
+                            <div class="daily-reward-label">Cofre Diario</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mining-content">
+                        <div class="inventory-sections">
+                            <div class="weapon-inventory">
+                                <div class="inventory-section-title">Armas</div>
+                                <div class="minecraft-inventory weapon-slots">
+                                    <div class="inventory-slot weapon-slot"></div>
+                                </div>
+                            </div>
+                            <div class="armor-inventory">
+                                <div class="inventory-section-title">Armaduras</div>
+                                <div class="minecraft-inventory armor-slots">
+                                    <div class="inventory-slot armor-slot"></div>
+                                    <div class="inventory-slot armor-slot"></div>
+                                    <div class="inventory-slot armor-slot"></div>
+                                    <div class="inventory-slot armor-slot"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mining-info">
+                            <span class="level-text">Tasa de Minería <span id="rate">0.001</span> USDT/s</span>
+                            <button id="startMining" class="start-mining-btn">Comenzar Mineria</button>
+                        </div>
+                        
+                        <div class="mining-timer" id="miningTimer">
+                            Minería detenida
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-shop-toggle">
+                <button id="toggleItemShop" class="item-shop-toggle-btn">🗡️ Tienda de Armas</button>
+                <button id="toggleArmorShop" class="item-shop-toggle-btn">🛡️ Tienda de Armaduras</button>
+            </div>
+
+            <div class="item-shop-overlay hidden" id="itemShopOverlay">
+                <div class="item-shop-modal">
+                    <div class="item-shop-header">
+                        <h2>Tienda de Armas</h2>
+                        <button id="closeItemShop" class="close-item-shop-btn">✕</button>
+                    </div>
+                    <div class="item-shop-content" id="itemShopContent">
+                        <!-- Item shop will be dynamically populated -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="armor-shop-overlay hidden" id="armorShopOverlay">
+                <div class="item-shop-modal">
+                    <div class="item-shop-header">
+                        <h2>Tienda de Armaduras</h2>
+                        <button id="closeArmorShop" class="close-item-shop-btn">✕</button>
+                    </div>
+                    <div class="item-shop-content" id="armorShopContent">
+                        <!-- Armor shop will be dynamically populated -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="daily-reward-overlay hidden" id="dailyRewardOverlay">
+                <div class="daily-reward-modal">
+                    <div class="daily-reward-header">
+                        <h2>Recompensa Diaria</h2>
+                        <button id="closeDailyReward" class="close-daily-reward-btn">✕</button>
+                    </div>
+                    <div class="daily-reward-content">
+                        <div class="reward-amount" id="dailyRewardAmount">0.00 USDT</div>
+                        <button id="claimDailyReward" class="claim-reward-btn">Reclamar Recompensa</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-label">Total Minado</span>
+                    <span class="stat-value" id="totalMined">0.00 USDT</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Tiempo Activo</span>
+                    <span class="stat-value" id="activeTime">00:00:00</span>
+                </div>
+            </div>
+            
+            <div class="inventory-overlay hidden" id="inventoryOverlay">
+                <div class="minecraft-inventory-modal">
+                    <div class="minecraft-inventory-header">
+                        <h2>Inventory</h2>
+                        <button id="closeInventory" class="minecraft-inventory-close">✕</button>
+                    </div>
+                    
+                    <div class="minecraft-inventory-content" id="inventoryContent">
+                        <!-- Dynamically populated inventory slots -->
+                    </div>
+                    
+                    <div class="minecraft-player-info">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="withdrawal-section">
+                <button id="toggleWithdrawal" class="withdraw-btn">Retirar USDT</button>
+            </div>
+
+            <div class="affiliate-section">
+                <div class="affiliate-container">
+                    <div class="affiliate-header">
+                        <h3>🔗 Programa de Referidos</h3>
+                    </div>
+                    <div class="affiliate-content">
+                        <div class="affiliate-stats-preview">
+                            <div class="stat-box">
+                                <span class="stat-icon">💰</span>
+                                <div class="stat-details">
+                                    <span class="stat-label">Ganancias</span>
+                                    <span class="stat-value" id="referralEarnings">0.00 USDT</span>
+                                </div>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-icon">👥</span>
+                                <div class="stat-details">
+                                    <span class="stat-label">Referidos</span>
+                                    <span class="stat-value" id="totalReferrals">0</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="affiliate-link-section">
+                            <p class="affiliate-description">
+                                Gana un 10% de las ganancias de cada referido
+                            </p>
+                            <div class="affiliate-link-container">
+                                <input 
+                                    type="text" 
+                                    id="affiliateLink" 
+                                    class="affiliate-link" 
+                                    readonly 
+                                    value="" 
+                                    placeholder="Tu enlace de afiliado"
+                                >
+                                <button id="copyAffiliateLink" class="copy-affiliate-link">Copiar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="withdrawal-overlay hidden" id="withdrawalOverlay">
+                <div class="withdrawal-modal">
+                    <div class="withdrawal-header">
+                        <h2>Retirar USDT</h2>
+                        <button id="closeWithdrawal" class="close-withdrawal-btn">✕</button>
+                    </div>
+                    <div class="withdrawal-content">
+                        <form class="withdrawal-form">
+                            <input 
+                                type="number" 
+                                id="withdrawalAmount" 
+                                class="withdrawal-input" 
+                                placeholder="Monto a retirar" 
+                                step="0.000001" 
+                                min="0"
+                            >
+                            <input 
+                                type="text" 
+                                id="withdrawalAddress" 
+                                class="withdrawal-input" 
+                                placeholder="Dirección de USDT (trc20)"
+                            >
+                            <button type="submit" id="confirmWithdrawal" class="withdraw-btn">
+                                Retirar
+                            </button>
+                        </form>
+                        <div class="withdrawal-warning">
+                            Nota: Los retiros mínimos son de 5 USDT
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+    <script src="affiliate.js"></script>
+    <script src="startup.js"></script>
+    <script src="game-interactions.js"></script>
+    <script src="sound-manager.js"></script>
+    <script src="item-preview.js"></script>
+    <script src="shop-interactions.js"></script>
+    <script src="sound-interactions.js"></script>
 </body>
 </html>

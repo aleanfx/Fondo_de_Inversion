@@ -1,0 +1,20 @@
+{
+    "name": "Cyber Forex Mining Game",
+    "short_name": "CyberForex",
+    "description": "Digital mining and investment strategy game",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#2ECC71",
+    "icons": [
+        {
+            "src": "/IMG_0594.jpeg",
+            "sizes": "192x192",
+            "type": "image/jpeg"
+        }
+    ],
+    "permissions": [
+        "background-sync"
+    ]
+}
+

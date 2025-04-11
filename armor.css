@@ -1,0 +1,27 @@
+/* Specific styles for armor items in the shop */
+.armor-item-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.armor-item-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0,0,0,0.7);
+    border: 2px solid rgba(46, 204, 113, 0.3);
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.armor-item-card img {
+    max-width: 50px;
+    max-height: 50px;
+    margin-bottom: 10px;
+    filter: brightness(1.2) contrast(1.2);
+}

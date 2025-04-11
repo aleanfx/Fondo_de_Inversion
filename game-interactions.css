@@ -1,0 +1,38 @@
+@keyframes encouragement-popup {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    70% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes encouragement-fadeout {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+}
+
+.encouragement-popup {
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.5);
+    font-size: 0.8em;
+}
+
+.minecraft-particle {
+    position: absolute;
+    pointer-events: none;
+    image-rendering: pixelated;
+}
